@@ -42,13 +42,16 @@ function handleNextButtonClicked(){
     loadQuestion();
     quizSection.hidden = false;
     nextButton.innerHTML = "Next";
+    nextButton.disabled = true;
     currentState = states.quiz
 
   } else if (currentState === states.quiz){
     hideAll();
     quizSection.hidden = false;
     currentQuestion += 1;
-
+    if(answers[currentQuestion] === null){
+      nextButton.disabled = true;
+    }
     if(currentQuestion > 0){
       backButton.disabled = false;
     }
@@ -67,16 +70,19 @@ function handleBackButtonClicked(){
   if(currentQuestion === 0){
     backButton.disabled = true;
   }
+  if(answers[currentQuestion] !== null){
+    nextButton.disabled = false;
+  }
   loadQuestion();
 }
 
 function handleAnswerInput({target}){
+  nextButton.disabled = false;
   enableAllButtons();
   if (target.type !== "text") {
     target.disabled = true;
   }
   answers[currentQuestion] = target.value;
-  console.log(answers);
 }
 
 function hideAll(){
