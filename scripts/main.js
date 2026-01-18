@@ -16,7 +16,8 @@ const numQuestions = 10;
 
 let currentState = states.howTo;
 let currentQuestion = 0;
-let questions = [];
+const questions = [];
+const answers = Array(numQuestions).fill(null); //stores answers entered by users
 
 const nextButton = document.getElementById("next-button");
 const backButton = document.getElementById("back-button");
@@ -29,6 +30,10 @@ const multiChoiceInput = document.getElementById(questionTypes.multiChoice+"-inp
 const trueFalseInput = document.getElementById(questionTypes.trueFalse+"-input");
 const fillInTheBlankInput = document.getElementById(questionTypes.fillInTheBlank+"-input");
 const multiChoiceButtons = document.getElementsByClassName("option");
+const trueButton = document.getElementById("true-button");
+const falseButton = document.getElementById("false-button");
+const answerButtons = document.getElementsByClassName("answer-button");
+const textEntry = document.getElementById("text-entry");
 
 function handleNextButtonClicked(){
   if (currentState === states.howTo){
@@ -40,7 +45,7 @@ function handleNextButtonClicked(){
     currentState = states.quiz
 
   } else if (currentState === states.quiz){
-    hideAll()
+    hideAll();
     quizSection.hidden = false;
     currentQuestion += 1;
 
@@ -56,11 +61,22 @@ function handleNextButtonClicked(){
 }
 
 function handleBackButtonClicked(){
+  hideAll();
+  quizSection.hidden = false;
   currentQuestion -= 1;
   if(currentQuestion === 0){
     backButton.disabled = true;
   }
   loadQuestion();
+}
+
+function handleAnswerInput({target}){
+  enableAllButtons();
+  if (target.type !== "text") {
+    target.disabled = true;
+  }
+  answers[currentQuestion] = target.value;
+  console.log(answers);
 }
 
 function hideAll(){
@@ -69,6 +85,12 @@ function hideAll(){
   Array.from(answerInputs).forEach((input) => {
     input.hidden = true;
   });
+}
+
+function enableAllButtons(){
+  Array.from(answerButtons).forEach((button)=>{
+    button.disabled = false;
+  })
 }
 
 function loadQuestions(){
@@ -85,22 +107,43 @@ function loadQuestions(){
 }
 
 function loadQuestion(){
+  enableAllButtons();
   const question = questions[currentQuestion];
   questionTypeElement.innerHTML = question.type;
   questionElement.innerHTML = question.question;
   switch(question.type){
+    //Multi choice question
     case questionTypes.multiChoice:
       multiChoiceInput.hidden = false;
       for (let i = 0; i < 4; i++){
-        multiChoiceButtons[i].innerHTML = question.options[i];
+        const text = question.options[i]; //button text
+        multiChoiceButtons[i].innerHTML = text;
+        multiChoiceButtons[i].value = text;
+        if(text === answers[currentQuestion]){
+          multiChoiceButtons[i].disabled = true;
+        }
       }
       break;
+    //True or false question
     case questionTypes.trueFalse:
       trueFalseInput.hidden = false;
+      switch(answers[currentQuestion]){
+        case "true":
+          trueButton.disabled = true;
+          break;
+        case "false":
+          falseButton.disabled = true;
+          break;
+      }
       break;
+    //Fill in the blank question
     case questionTypes.fillInTheBlank:
       fillInTheBlankInput.hidden = false;
+      if(answers[currentQuestion] !== null){
+        textEntry.value = answers[currentQuestion];
+      }
       break;
+    //Invalid question 
     default:
       console.log("Invalid Question Type!!!")
   }
@@ -109,4 +152,9 @@ function loadQuestion(){
 
 nextButton.addEventListener("click", handleNextButtonClicked);
 backButton.addEventListener("click", handleBackButtonClicked);
+Array.from(answerButtons).forEach((button)=>{
+  button.addEventListener("click", handleAnswerInput);
+});
+textEntry.addEventListener("input", handleAnswerInput);
+
 
