@@ -49,11 +49,11 @@ button {
   text-align: center;
 }
 
-.next-button {
+#next-button {
   margin-left: auto;
   justify-content: flex-end;
 }
 
-.quiz {
+#quiz {
   text-align: center;
 }
