@@ -3,74 +3,74 @@
   This dataset was generated with the assistance of ChatGPT.
 */
 
-export const questions = [
+export const allQuestions = [
   // ---------- Multiple Choice (1–10) ----------
   {
     id: 1,
-    type: "multiple-choice",
+    type: "multi-choice",
     question: "Which meme features a Shiba Inu dog with colorful Comic Sans text?",
     options: ["Grumpy Cat", "Doge", "Success Kid", "Distracted Boyfriend"],
     correctAnswer: "Doge"
   },
   {
     id: 2,
-    type: "multiple-choice",
+    type: "multi-choice",
     question: "The 'Distracted Boyfriend' meme originated from what type of media?",
     options: ["Movie scene", "TV show", "Stock photograph", "Music video"],
     correctAnswer: "Stock photograph"
   },
   {
     id: 3,
-    type: "multiple-choice",
+    type: "multi-choice",
     question: "Which meme shows a baby clenching his fist in celebration?",
     options: ["Bad Luck Brian", "Success Kid", "Overly Attached Girlfriend", "Hide the Pain Harold"],
     correctAnswer: "Success Kid"
   },
   {
     id: 4,
-    type: "multiple-choice",
+    type: "multi-choice",
     question: "Which character is associated with the phrase 'One does not simply walk into Mordor'?",
     options: ["Gandalf", "Boromir", "Aragorn", "Frodo"],
     correctAnswer: "Boromir"
   },
   {
     id: 5,
-    type: "multiple-choice",
+    type: "multi-choice",
     question: "What animal is featured in the 'Grumpy Cat' meme?",
     options: ["Dog", "Cat", "Rabbit", "Hamster"],
     correctAnswer: "Cat"
   },
   {
     id: 6,
-    type: "multiple-choice",
+    type: "multi-choice",
     question: "Which meme features a man smiling despite clearly being in pain?",
     options: ["Success Kid", "Bad Luck Brian", "Hide the Pain Harold", "Drake Hotline Bling"],
     correctAnswer: "Hide the Pain Harold"
   },
   {
     id: 7,
-    type: "multiple-choice",
+    type: "multi-choice",
     question: "Which meme uses two images of Drake to show approval and disapproval?",
     options: ["Expanding Brain", "Drake Hotline Bling", "Distracted Boyfriend", "Change My Mind"],
     correctAnswer: "Drake Hotline Bling"
   },
   {
     id: 8,
-    type: "multiple-choice",
+    type: "multi-choice",
     question: "The meme 'Woman Yelling at a Cat' combines a cat with footage from which medium?",
     options: ["Reality TV show", "Movie", "Music video", "Sitcom"],
     correctAnswer: "Reality TV show"
   },
   {
     id: 9,
-    type: "multiple-choice",
+    type: "multi-choice",
     question: "Which meme format shows increasingly enlightened thinking?",
     options: ["Expanding Brain", "Mocking SpongeBob", "Surprised Pikachu", "Two Buttons"],
     correctAnswer: "Expanding Brain"
   },
   {
     id: 10,
-    type: "multiple-choice",
+    type: "multi-choice",
     question: "Which meme features a yellow Pokémon looking shocked?",
     options: ["Detective Pikachu", "Surprised Pikachu", "Angry Pikachu", "Sleepy Pikachu"],
     correctAnswer: "Surprised Pikachu"
