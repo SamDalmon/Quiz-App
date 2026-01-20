@@ -12,18 +12,23 @@ const questionTypes = {
   fillInTheBlank: "fill-in-the-blank"
 }
 
-const numQuestions = 10;
+const numQuestions = 1;
 
 let currentState = states.howTo;
 let currentQuestion = 0;
-const questions = [];
-const answers = Array(numQuestions).fill(null); //stores answers entered by users
+let questions = [];
+let answers = Array(numQuestions).fill(null); //stores answers entered by users
 
+//Navigation
 const nextButton = document.getElementById("next-button");
 const backButton = document.getElementById("back-button");
+
+//Sections
 const howToSection = document.getElementById("how-to");
 const quizSection = document.getElementById("quiz");
-const resultsSection = document.getElementById("performance-review")
+const resultsSection = document.getElementById("performance-review");
+
+//Quiz Elements
 const answerInputs = document.getElementsByClassName("answer-input");
 const questionTypeElement = document.getElementById("question-type");
 const questionElement = document.getElementById("question");
@@ -36,17 +41,24 @@ const falseButton = document.getElementById("false-button");
 const answerButtons = document.getElementsByClassName("answer-button");
 const textEntry = document.getElementById("text-entry");
 
+//Performance Review
+const resultsTable = document.getElementById("results-table");
+
 function handleNextButtonClicked(){
   hideAll();
+  enableAllButtons()
   switch (currentState){
     case states.howTo:
+      questions = [];
+      answers = Array(numQuestions).fill(null);
+      currentQuestion = 0;
+      resultsTable.innerHTML = "";
       loadQuestions();
       loadQuestion();
       quizSection.hidden = false;
       nextButton.innerHTML = "Next";
       nextButton.disabled = true;
       currentState = states.quiz;
-
       break;
 
     case states.quiz:
@@ -69,6 +81,7 @@ function handleNextButtonClicked(){
         nextButton.innerHTML = "play again"
         backButton.disabled = true;
         currentState = states.performanceReview;
+        showResults()
       }
       break;
 
@@ -175,6 +188,22 @@ function loadQuestion(){
       console.log("Invalid Question Type!!!");
   }
 
+}
+
+function showResults(){
+  questions.forEach(({question, correctAnswer}, i)=>{
+    correctAnswer = String(correctAnswer);
+    console.log(correctAnswer);
+    const color = correctAnswer.includes(answers[i]) ? "#9de060" : "#f76d71";
+    const componentHTML = `
+      <tr style="background-color: ${color}">
+        <td>${question}</td>
+        <td>${answers[i]}</td>
+        <td>${correctAnswer}</td>
+      </tr>
+    `
+    resultsTable.insertAdjacentHTML('beforeend', componentHTML);
+  })
 }
 
 nextButton.addEventListener("click", handleNextButtonClicked);

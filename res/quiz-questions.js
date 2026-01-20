@@ -143,60 +143,60 @@ export const allQuestions = [
     id: 21,
     type: "fill-in-the-blank",
     question: "The meme featuring a dog in a burning room says, 'This is ____.'",
-    correctAnswers: ["fine"]
+    correctAnswer: ["fine"]
   },
   {
     id: 22,
     type: "fill-in-the-blank",
     question: "The meme known as 'Success Kid' represents a small ____.",
-    correctAnswers: ["victory", "win"]
+    correctAnswer: ["victory", "win"]
   },
   {
     id: 23,
     type: "fill-in-the-blank",
     question: "The meme 'Hide the Pain ____' features an older man smiling.",
-    correctAnswers: ["harold"]
+    correctAnswer: ["harold"]
   },
   {
     id: 24,
     type: "fill-in-the-blank",
     question: "The phrase 'One does not simply walk into ____' comes from a meme.",
-    correctAnswers: ["mordor"]
+    correctAnswer: ["mordor"]
   },
   {
     id: 25,
     type: "fill-in-the-blank",
     question: "The meme with alternating capital letters is known as 'Mocking ____.'",
-    correctAnswers: ["spongebob"]
+    correctAnswer: ["spongebob"]
   },
   {
     id: 26,
     type: "fill-in-the-blank",
     question: "The shocked Pokémon meme is called 'Surprised ____.'",
-    correctAnswers: ["pikachu"]
+    correctAnswer: ["pikachu"]
   },
   {
     id: 27,
     type: "fill-in-the-blank",
     question: "The meme where a man presents a sign saying 'Change My ____' is widely used.",
-    correctAnswers: ["mind"]
+    correctAnswer: ["mind"]
   },
   {
     id: 28,
     type: "fill-in-the-blank",
     question: "The meme format showing difficult decisions is called 'Two ____.'",
-    correctAnswers: ["buttons"]
+    correctAnswer: ["buttons"]
   },
   {
     id: 29,
     type: "fill-in-the-blank",
     question: "The meme 'Woman Yelling at a ____' features a confused white cat.",
-    correctAnswers: ["cat"]
+    correctAnswer: ["cat"]
   },
   {
     id: 30,
     type: "fill-in-the-blank",
     question: "The meme that tricks users into a song is called a ____roll.",
-    correctAnswers: ["rick"]
+    correctAnswer: ["rick"]
   }
 ];
