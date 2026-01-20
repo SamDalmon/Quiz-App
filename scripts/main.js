@@ -23,6 +23,7 @@ const nextButton = document.getElementById("next-button");
 const backButton = document.getElementById("back-button");
 const howToSection = document.getElementById("how-to");
 const quizSection = document.getElementById("quiz");
+const resultsSection = document.getElementById("performance-review")
 const answerInputs = document.getElementsByClassName("answer-input");
 const questionTypeElement = document.getElementById("question-type");
 const questionElement = document.getElementById("question");
@@ -36,30 +37,47 @@ const answerButtons = document.getElementsByClassName("answer-button");
 const textEntry = document.getElementById("text-entry");
 
 function handleNextButtonClicked(){
-  if (currentState === states.howTo){
-    loadQuestions();
-    hideAll();
-    loadQuestion();
-    quizSection.hidden = false;
-    nextButton.innerHTML = "Next";
-    nextButton.disabled = true;
-    currentState = states.quiz
-
-  } else if (currentState === states.quiz){
-    hideAll();
-    quizSection.hidden = false;
-    currentQuestion += 1;
-    if(answers[currentQuestion] === null){
+  hideAll();
+  switch (currentState){
+    case states.howTo:
+      loadQuestions();
+      loadQuestion();
+      quizSection.hidden = false;
+      nextButton.innerHTML = "Next";
       nextButton.disabled = true;
-    }
-    if(currentQuestion > 0){
-      backButton.disabled = false;
-    }
-    if(currentQuestion === questions.length - 1){
-      nextButton.innerHTML = "Submit"
-    }
+      currentState = states.quiz;
 
-    loadQuestion();
+      break;
+
+    case states.quiz:
+      if(currentQuestion < numQuestions - 1){
+        quizSection.hidden = false;
+        currentQuestion += 1;
+        if(answers[currentQuestion] === null){
+          nextButton.disabled = true;
+        }
+        if(currentQuestion > 0){
+          backButton.disabled = false;
+        }
+        if(currentQuestion === questions.length - 1){
+          nextButton.innerHTML = "Submit"
+        }
+        loadQuestion();
+      } else {
+        resultsSection.hidden = false;
+        nextButton.disabled = false;
+        nextButton.innerHTML = "play again"
+        backButton.disabled = true;
+        currentState = states.performanceReview;
+      }
+      break;
+
+    case states.performanceReview:
+      howToSection.hidden = false;
+      nextButton.innerHTML = "Start Quiz";
+      nextButton.disabled = false;
+      backButton.disabled = true;
+      currentState = states.howTo;
   }
 }
 
@@ -77,17 +95,19 @@ function handleBackButtonClicked(){
 }
 
 function handleAnswerInput({target}){
+  answers[currentQuestion] = target.value;
+  
   nextButton.disabled = false;
   enableAllButtons();
   if (target.type !== "text") {
     target.disabled = true;
   }
-  answers[currentQuestion] = target.value;
 }
 
 function hideAll(){
   howToSection.hidden = true;
   quizSection.hidden = true;
+  resultsSection.hidden = true;
   Array.from(answerInputs).forEach((input) => {
     input.hidden = true;
   });
@@ -114,6 +134,7 @@ function loadQuestions(){
 
 function loadQuestion(){
   enableAllButtons();
+  textEntry.value = "";
   const question = questions[currentQuestion];
   questionTypeElement.innerHTML = question.type;
   questionElement.innerHTML = question.question;
@@ -151,7 +172,7 @@ function loadQuestion(){
       break;
     //Invalid question 
     default:
-      console.log("Invalid Question Type!!!")
+      console.log("Invalid Question Type!!!");
   }
 
 }
