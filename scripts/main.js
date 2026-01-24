@@ -14,9 +14,9 @@ const questionTypes = {
 
 const numQuestions = 5;
 let currentState = states.howTo;
-let currentQuestion = 0;
-let questions = [];
-let answers = Array(numQuestions).fill(null); //stores answers entered by users
+let currentQuestion;
+let questions;
+let answers; //stores answers entered by users
 
 //Navigation
 const nextButton = document.getElementById("next-button");
@@ -28,12 +28,13 @@ const quizSection = document.getElementById("quiz");
 const resultsSection = document.getElementById("performance-review");
 
 //Quiz Elements
-const answerInputs = document.getElementsByClassName("answer-input");
+
 const questionTypeElement = document.getElementById("question-type");
 const questionElement = document.getElementById("question");
 const multiChoiceInput = document.getElementById(questionTypes.multiChoice+"-input");
 const trueFalseInput = document.getElementById(questionTypes.trueFalse+"-input");
 const fillInTheBlankInput = document.getElementById(questionTypes.fillInTheBlank+"-input");
+const answerInputs = [multiChoiceInput, trueFalseInput, fillInTheBlankInput];
 const multiChoiceButtons = document.getElementsByClassName("option");
 const trueButton = document.getElementById("true-button");
 const falseButton = document.getElementById("false-button");
@@ -53,8 +54,8 @@ function handleNextButtonClicked(){
       currentQuestion = 0;
       resultsTable.innerHTML = "";
       loadQuestions();
-      loadQuestion();
       quizSection.hidden = false;
+      loadQuestion();
       nextButton.innerHTML = "Next";
       nextButton.disabled = true;
       currentState = states.quiz;
@@ -90,6 +91,7 @@ function handleNextButtonClicked(){
       nextButton.disabled = false;
       backButton.disabled = true;
       currentState = states.howTo;
+      break;
   }
 }
 
@@ -120,8 +122,9 @@ function hideAll(){
   howToSection.hidden = true;
   quizSection.hidden = true;
   resultsSection.hidden = true;
-  Array.from(answerInputs).forEach((input) => {
-    input.hidden = true;
+  answerInputs.forEach((input) => {
+    console.log(input.id);
+    input.style.display = "none"
   });
 }
 
@@ -136,7 +139,7 @@ function loadQuestions(){
   for(let i = 0; i < numQuestions; i++){
     let randNum;
     do {
-      randNum = Math.round(Math.random() * allQuestions.length);
+      randNum = Math.floor(Math.random() * allQuestions.length);
     } while (addedQuestions.includes(randNum))
     questions.push(allQuestions[randNum]);
     addedQuestions.push(randNum)
@@ -150,10 +153,12 @@ function loadQuestion(){
   const question = questions[currentQuestion];
   questionTypeElement.innerHTML = question.type;
   questionElement.innerHTML = question.question;
+  // Hide all answer input containers before showing the correct one
   switch(question.type){
     //Multi choice question
     case questionTypes.multiChoice:
-      multiChoiceInput.hidden = false;
+      console.log("multi-choice question");
+      multiChoiceInput.style.display = "block";
       for (let i = 0; i < 4; i++){
         const text = question.options[i]; //button text
         multiChoiceButtons[i].innerHTML = text;
@@ -165,7 +170,8 @@ function loadQuestion(){
       break;
     //True or false question
     case questionTypes.trueFalse:
-      trueFalseInput.hidden = false;
+      console.log("true-false question");
+      trueFalseInput.style.display = "block";
       switch(answers[currentQuestion]){
         case "true":
           trueButton.disabled = true;
@@ -177,7 +183,8 @@ function loadQuestion(){
       break;
     //Fill in the blank question
     case questionTypes.fillInTheBlank:
-      fillInTheBlankInput.hidden = false;
+      console.log("fill-In-The-Blank question");
+      fillInTheBlankInput.style.display = "block";
       if(answers[currentQuestion] !== null){
         textEntry.value = answers[currentQuestion];
       }
