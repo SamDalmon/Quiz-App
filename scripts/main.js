@@ -243,4 +243,14 @@ Array.from(answerButtons).forEach((button)=>{
 });
 textEntry.addEventListener("input", handleAnswerInput);
 
+document.addEventListener("keydown", ({key}) => {
+  switch(key){
+    case("Enter"): 
+      if(answers[currentQuestion] !== null){
+        handleNextButtonClicked();
+      }
+      break;
+  }
+});
+
 
