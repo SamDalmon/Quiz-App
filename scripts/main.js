@@ -28,7 +28,6 @@ const quizSection = document.getElementById("quiz");
 const resultsSection = document.getElementById("performance-review");
 
 //Quiz Elements
-
 const questionTypeElement = document.getElementById("question-type");
 const questionElement = document.getElementById("question");
 const multiChoiceInput = document.getElementById(questionTypes.multiChoice+"-input");
@@ -42,6 +41,8 @@ const answerButtons = document.getElementsByClassName("answer-button");
 const textEntry = document.getElementById("text-entry");
 
 //Performance Review
+const scoreDisplay = document.getElementById("score-display");
+const messageDisplay = document.getElementById("message-display");
 const resultsTable = document.getElementById("results-table");
 
 function handleNextButtonClicked(){
@@ -78,7 +79,7 @@ function handleNextButtonClicked(){
       } else {
         resultsSection.hidden = false;
         nextButton.disabled = false;
-        nextButton.innerHTML = "play again"
+        nextButton.innerHTML = "Play Again"
         backButton.disabled = true;
         currentState = states.performanceReview;
         showResults()
@@ -109,7 +110,7 @@ function handleBackButtonClicked(){
 }
 
 function handleAnswerInput({target}){
-  answers[currentQuestion] = target.value;
+  answers[currentQuestion] = target.value.toLowerCase();
   
   nextButton.disabled = false;
   enableAllButtons();
@@ -123,7 +124,6 @@ function hideAll(){
   quizSection.hidden = true;
   resultsSection.hidden = true;
   answerInputs.forEach((input) => {
-    console.log(input.id);
     input.style.display = "none"
   });
 }
@@ -157,7 +157,7 @@ function loadQuestion(){
   switch(question.type){
     //Multi choice question
     case questionTypes.multiChoice:
-      console.log("multi-choice question");
+      //console.log("multi-choice question");
       multiChoiceInput.style.display = "block";
       for (let i = 0; i < 4; i++){
         const text = question.options[i]; //button text
@@ -170,7 +170,7 @@ function loadQuestion(){
       break;
     //True or false question
     case questionTypes.trueFalse:
-      console.log("true-false question");
+      //console.log("true-false question");
       trueFalseInput.style.display = "block";
       switch(answers[currentQuestion]){
         case "true":
@@ -183,7 +183,7 @@ function loadQuestion(){
       break;
     //Fill in the blank question
     case questionTypes.fillInTheBlank:
-      console.log("fill-In-The-Blank question");
+      //console.log("fill-In-The-Blank question");
       fillInTheBlankInput.style.display = "block";
       if(answers[currentQuestion] !== null){
         textEntry.value = answers[currentQuestion];
@@ -197,10 +197,12 @@ function loadQuestion(){
 }
 
 function showResults(){
+  let numCorrect = 0;
   questions.forEach(({question, correctAnswer}, i)=>{
-    correctAnswer = String(correctAnswer);
-    console.log(correctAnswer);
-    const color = correctAnswer.includes(answers[i]) ? "#9de060" : "#f76d71";
+    correctAnswer = String(correctAnswer).toLocaleLowerCase();
+    const isCorrect = correctAnswer.includes(answers[i]); 
+    const color = isCorrect ? "#9de060" : "#f76d71";
+    numCorrect += Number(isCorrect);
     const componentHTML = `
       <tr style="background-color: ${color}">
         <td>${question}</td>
@@ -209,7 +211,25 @@ function showResults(){
       </tr>
     `
     resultsTable.insertAdjacentHTML('beforeend', componentHTML);
-  })
+  });
+  const correctRatio = numCorrect/numQuestions;
+  scoreDisplay.innerHTML = numCorrect + "/" + numQuestions;
+  let message = "";
+  if(correctRatio === 1){
+    message = "Flawless. NASA just called — they want to study your brain.";
+  } else if (correctRatio === 0){
+    message = "0 correct is CRAZY. This wasn't a quiz — this was free-range button mashing. \
+      Bro said 'lock in' and immediately logged out. Absolute NPC behaviour. \
+      No thoughts. Head empty. Wi-Fi connected but brain buffering.";
+  } 
+  else if (correctRatio >= 0.5){
+    message = "Respectable. You definitely spend time online… maybe a healthy amount.";
+  } else if (correctRatio >= 0.33){
+    message = "Okay… not great, not terrible. You've seen memes, just not paying attention.";
+  } else {
+    message = "Yikes. This score just got ratioed.";
+  }
+  messageDisplay.innerHTML = message;
 }
 
 nextButton.addEventListener("click", handleNextButtonClicked);
