@@ -1,19 +1,27 @@
+* {
+  font-family: "Comic Sans MS", "Comic Sans", cursive, sans-serif;
+}
+
 body {
   display: flex;
   flex-direction: column;
   margin: 0;
   height: 100vh;
+  background-image: url(../res/Gemini_Generated_Image_bgv62kbgv62kbgv6.png);
+  background-attachment: fixed;
+  background-repeat: round;
 }
 
 header {
   box-sizing: border-box;
   position: fixed;
   top: 0;
-  background-color: black;
+  background-color: #60B6D7;
   padding: 1%;
   width: 100%;
   height: 100px;
   z-index: 1;
+  outline: 4px solid #438238;
 }
 
 main {
@@ -25,7 +33,8 @@ main {
   padding-top: 100px;
   padding-bottom: 50px;
   width: 50%;
-  background-color: lightgray;
+  background-color: rgba(251, 234, 46, 0.957);
+  outline: 4px solid #438238;
 }
 
 footer {
@@ -33,10 +42,11 @@ footer {
   bottom: 0;
   display: flex;
   justify-content: center;
-  background-color: black;
+  background-color: #60B6D7;
   padding: 10px 0px;
   height: 30px;
   width: 100%;
+  outline: 4px solid #438238;
 }
 
 h1 {
@@ -57,23 +67,52 @@ button {
 
 .nav-button {
   width: 100px;
+  border-radius: 10px;
+}
+.nav-button:disabled {
+  background-color: rgb(180, 180, 180);
+}
+.nav-button:hover {
+  background-color: rgba(203, 254, 194, 0.584)
 }
 
 .answer-button {
   width: 170px;
   height: 50px;
+  border-radius: 10px;
+}
+.answer-button:disabled {
+  background-color: #438238;
+  border-radius: 10px;
+  border-color: #438238;
+  font-weight: bolder;
+  color: black;
+}
+.answer-button:hover {
+  background-color: #b2e8fe;
+}
+
+
+#text-entry {
+  padding: 0.5em;
+  border-radius: 10px;
 }
 
 #multi-choice-input, #true-false-input {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+  row-gap: 1px;
   justify-items: center;
   
 }
 
+#back-button {
+  margin-left: 10px;
+}
+
 #next-button {
   margin-left: auto;
+  margin-right: 10px;
   justify-content: flex-end;
 }
 

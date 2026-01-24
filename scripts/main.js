@@ -158,7 +158,7 @@ function loadQuestion(){
     //Multi choice question
     case questionTypes.multiChoice:
       //console.log("multi-choice question");
-      multiChoiceInput.style.display = "block";
+      multiChoiceInput.style.display = "grid";
       for (let i = 0; i < 4; i++){
         const text = question.options[i]; //button text
         multiChoiceButtons[i].innerHTML = text;
@@ -171,7 +171,7 @@ function loadQuestion(){
     //True or false question
     case questionTypes.trueFalse:
       //console.log("true-false question");
-      trueFalseInput.style.display = "block";
+      trueFalseInput.style.display = "grid";
       switch(answers[currentQuestion]){
         case "true":
           trueButton.disabled = true;
@@ -214,6 +214,9 @@ function showResults(){
   });
   const correctRatio = numCorrect/numQuestions;
   scoreDisplay.innerHTML = numCorrect + "/" + numQuestions;
+  
+  
+  //Thease messages were bought to you by chat GPT
   let message = "";
   if(correctRatio === 1){
     message = "Flawless. NASA just called — they want to study your brain.";
@@ -232,6 +235,7 @@ function showResults(){
   messageDisplay.innerHTML = message;
 }
 
+//Event Listeners
 nextButton.addEventListener("click", handleNextButtonClicked);
 backButton.addEventListener("click", handleBackButtonClicked);
 Array.from(answerButtons).forEach((button)=>{
