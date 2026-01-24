@@ -12,8 +12,7 @@ const questionTypes = {
   fillInTheBlank: "fill-in-the-blank"
 }
 
-const numQuestions = 1;
-
+const numQuestions = 5;
 let currentState = states.howTo;
 let currentQuestion = 0;
 let questions = [];
