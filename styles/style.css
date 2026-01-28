@@ -1,5 +1,5 @@
 * {
-  font-family: "Comic Sans MS", "Comic Sans", cursive, sans-serif;
+  font-family: "Comic Sans MS", "Comic Sans", sans-serif;
 }
 
 body {
@@ -14,7 +14,9 @@ body {
 
 header {
   box-sizing: border-box;
+  display: flex;
   position: fixed;
+  align-items: center;
   top: 0;
   background-color: #60B6D7;
   padding: 1%;
@@ -47,8 +49,13 @@ footer {
 }
 
 h1 {
+  font-size: min(7vw, 40px);
   color: white;
   text-align: center;
+  vertical-align: middle;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
 }
 
 button {
@@ -68,6 +75,7 @@ button {
   border-radius: 10px;
   box-sizing: border-box;
   margin: 0 10px;
+  white-space: nowrap;
 }
 
 .nav-button:disabled {
