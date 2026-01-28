@@ -1,3 +1,10 @@
+:root {
+  --meme-blue: #60B6D7;
+  --pepe-green: #438238;
+
+  --content-width: 700px
+}
+
 * {
   font-family: "Comic Sans MS", "Comic Sans", sans-serif;
 }
@@ -18,12 +25,12 @@ header {
   position: fixed;
   align-items: center;
   top: 0;
-  background-color: #60B6D7;
+  background-color: var(--meme-blue);
   padding: 1%;
   width: 100%;
   height: 100px;
   z-index: 1;
-  outline: 4px solid #438238;
+  outline: 4px solid var(--pepe-green);
 }
 
 main {
@@ -32,7 +39,7 @@ main {
   padding: 0 10px;
   flex: 1;
   width: 100%;
-  max-width: 700px;
+  max-width: var(--content-width);
 }
 
 footer {
@@ -41,11 +48,11 @@ footer {
   bottom: 0;
   display: flex;
   justify-content: center;
-  background-color: #60B6D7;
+  background-color: var(--meme-blue);
   padding: 10px 0px;
   height: 50px;
   width: 100%;
-  outline: 4px solid #438238;
+  outline: 4px solid var(--pepe-green);
 }
 
 h1 {
@@ -54,7 +61,7 @@ h1 {
   text-align: center;
   vertical-align: middle;
   width: 100%;
-  max-width: 700px;
+  max-width: var(--content-width);
   margin: 0 auto;
 }
 
@@ -66,8 +73,7 @@ button {
 .nav-buttons-container {
   display: flex;
   justify-content: space-between;
-  width: 700px;
-  max-width: 700px;
+  width: var(--content-width);
 }
 
 .nav-button {
@@ -110,9 +116,9 @@ button {
   flex: 1;
   width: 100%;
   height: 100%;  
-  max-width: 700px;
+  max-width: var(--content-width);
   background-color: rgba(251, 234, 46, 0.957);
-  outline: 4px solid #438238;
+  outline: 4px solid var(--pepe-green);
 }
 
 #quiz {
