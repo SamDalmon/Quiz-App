@@ -98,9 +98,9 @@ button {
   border-radius: 10px;
 }
 .answer-button:disabled {
-  background-color: #438238;
+  background-color: var(--meme-blue);
   border-radius: 10px;
-  border-color: #438238;
+  border-color: blue;
   font-weight: bolder;
   color: black;
 }
