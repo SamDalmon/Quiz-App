@@ -216,13 +216,13 @@ function showResults(){
   scoreDisplay.innerHTML = numCorrect + "/" + numQuestions;
   
   
-  //Thease messages were bought to you by chat GPT
+  //These messages were bought to you by chat GPT
   let message = "";
   if(correctRatio === 1){
     message = "Flawless. NASA just called — they want to study your brain.";
   } else if (correctRatio === 0){
     message = "0 correct is CRAZY. This wasn't a quiz — this was free-range button mashing. \
-      Bro said 'lock in' and immediately logged out. Absolute NPC behaviour. \
+      Bro said 'lock in' and immediately logged out. Absolute NPC behavior. \
       No thoughts. Head empty. Wi-Fi connected but brain buffering.";
   } 
   else if (correctRatio >= 0.5){
