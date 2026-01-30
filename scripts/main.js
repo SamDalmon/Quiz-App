@@ -110,7 +110,7 @@ function handleBackButtonClicked(){
 }
 
 function handleAnswerInput({target}){
-  answers[currentQuestion] = target.value.toLowerCase();
+  answers[currentQuestion] = target.value.toLowerCase().trim();
   
   nextButton.disabled = false;
   enableAllButtons();
