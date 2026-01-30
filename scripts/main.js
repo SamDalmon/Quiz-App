@@ -198,6 +198,7 @@ function loadQuestion(){
 
 function showResults(){
   let numCorrect = 0;
+  console.log(answers);
   questions.forEach(({question, correctAnswer}, i)=>{
     correctAnswer = String(correctAnswer).toLowerCase();
     const isCorrect = correctAnswer.includes(answers[i]); 
