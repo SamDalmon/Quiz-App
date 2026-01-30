@@ -163,7 +163,7 @@ function loadQuestion(){
         const text = question.options[i]; //button text
         multiChoiceButtons[i].innerHTML = text;
         multiChoiceButtons[i].value = text;
-        if(text === answers[currentQuestion]){
+        if(text.toLowerCase() === answers[currentQuestion]){
           multiChoiceButtons[i].disabled = true;
         }
       }
@@ -199,7 +199,7 @@ function loadQuestion(){
 function showResults(){
   let numCorrect = 0;
   questions.forEach(({question, correctAnswer}, i)=>{
-    correctAnswer = String(correctAnswer).toLocaleLowerCase();
+    correctAnswer = String(correctAnswer).toLowerCase();
     const isCorrect = correctAnswer.includes(answers[i]); 
     const color = isCorrect ? "#9de060" : "#f76d71";
     numCorrect += Number(isCorrect);
