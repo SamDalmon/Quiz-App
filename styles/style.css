@@ -2,7 +2,7 @@
   --meme-blue: #60B6D7;
   --pepe-green: #438238;
 
-  --content-width: 700px
+  --content-width: 900px
 }
 
 * {
@@ -68,6 +68,11 @@ h1 {
 button {
   padding: 0.4% 0px;
   text-align: center;
+}
+
+table {
+  margin: 0 auto;
+  max-width: 700px;
 }
 
 .nav-buttons-container {
@@ -143,9 +148,11 @@ button {
 }
 
 #multi-choice-input, #true-false-input {
+  max-width: 400px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
-  row-gap: 1px;
+  grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+  row-gap: 5px;
+  margin: 0 auto;
   justify-items: center;
 }
 
