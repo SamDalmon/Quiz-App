@@ -1,3 +1,6 @@
+/* This file is laid out from least specificity to most specificity,
+then its in the order that the elements would be displayed on the page*/
+
 :root {
   --meme-blue: #60B6D7;
   --pepe-green: #438238;
@@ -151,7 +154,10 @@ table {
 
 #multi-choice-input, #true-false-input {
   max-width: 400px;
-  display: grid;
+  display: grid; 
+  /* This line is to make the answer buttons show in two columns when display 
+  is wide, and 1 column for narrow displays.
+  The line below was created wit the help of Chat GPT */
   grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
   row-gap: 5px;
   margin: 0 auto;

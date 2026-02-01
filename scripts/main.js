@@ -1,18 +1,20 @@
 import { allQuestions } from "../res/quiz-questions.js";
 
+//The states the App can be in
 const states = {
   howTo: "how-to",
   quiz: "quiz",
   performanceReview: "performance-review"
 };
 
+//Question types
 const questionTypes = {
   multiChoice: "multi-choice",
   trueFalse: "true-false",
   fillInTheBlank: "fill-in-the-blank"
 }
 
-const numQuestions = 5;
+const numQuestions = 5; //The total number of questions in a quiz (can be increased)
 let currentState = states.howTo;
 let currentQuestion;
 let questions;
@@ -45,11 +47,16 @@ const scoreDisplay = document.getElementById("score-display");
 const messageDisplay = document.getElementById("message-display");
 const resultsTable = document.getElementById("results-table");
 
+//Called when next button pressed
 function handleNextButtonClicked(){
+  //Resets UI
   hideAll();
   enableAllButtons()
+
+  //Sets UI based on state
   switch (currentState){
     case states.howTo:
+      //Resets all state variables
       questions = [];
       answers = Array(numQuestions).fill(null);
       currentQuestion = 0;
@@ -64,6 +71,7 @@ function handleNextButtonClicked(){
 
     case states.quiz:
       if(currentQuestion < numQuestions - 1){
+        //Navigate to next question and set up UI
         quizSection.hidden = false;
         currentQuestion += 1;
         if(answers[currentQuestion] === null){
@@ -77,6 +85,7 @@ function handleNextButtonClicked(){
         }
         loadQuestion();
       } else {
+        //Navigate to Performance review and set up UI
         resultsSection.hidden = false;
         nextButton.disabled = false;
         nextButton.innerHTML = "Play Again"
@@ -87,6 +96,7 @@ function handleNextButtonClicked(){
       break;
 
     case states.performanceReview:
+      //Navigate to Landing Page and set up UI
       howToSection.hidden = false;
       nextButton.innerHTML = "Start Quiz";
       nextButton.disabled = false;
@@ -96,6 +106,7 @@ function handleNextButtonClicked(){
   }
 }
 
+//Navigate to previous question and set up UI
 function handleBackButtonClicked(){
   hideAll();
   quizSection.hidden = false;
@@ -109,6 +120,7 @@ function handleBackButtonClicked(){
   loadQuestion();
 }
 
+//Save entered answer and enable next button
 function handleAnswerInput({target}){
   answers[currentQuestion] = target.value.toLowerCase().trim();
   
@@ -119,6 +131,7 @@ function handleAnswerInput({target}){
   }
 }
 
+//Hides all app sections and answer inputs  
 function hideAll(){
   howToSection.hidden = true;
   quizSection.hidden = true;
@@ -134,6 +147,7 @@ function enableAllButtons(){
   })
 }
 
+//Generates a random list of questions from all of the questions
 function loadQuestions(){
   const addedQuestions = [] //array of question indexes added
   for(let i = 0; i < numQuestions; i++){
@@ -147,17 +161,20 @@ function loadQuestions(){
   console.log(questions)
 }
 
+//Sets up UI for current question
 function loadQuestion(){
   enableAllButtons();
   textEntry.value = "";
   const question = questions[currentQuestion];
+
+  //Display question type and question
   questionTypeElement.innerHTML = question.type;
   questionElement.innerHTML = question.question;
-  // Hide all answer input containers before showing the correct one
+  
+  // Set up UI for corresponding question type
   switch(question.type){
     //Multi choice question
     case questionTypes.multiChoice:
-      //console.log("multi-choice question");
       multiChoiceInput.style.display = "grid";
       for (let i = 0; i < 4; i++){
         const text = question.options[i]; //button text
@@ -168,9 +185,9 @@ function loadQuestion(){
         }
       }
       break;
+
     //True or false question
     case questionTypes.trueFalse:
-      //console.log("true-false question");
       trueFalseInput.style.display = "grid";
       switch(answers[currentQuestion]){
         case "true":
@@ -181,24 +198,28 @@ function loadQuestion(){
           break;
       }
       break;
+
     //Fill in the blank question
     case questionTypes.fillInTheBlank:
-      //console.log("fill-In-The-Blank question");
       fillInTheBlankInput.style.display = "block";
       if(answers[currentQuestion] !== null){
         textEntry.value = answers[currentQuestion];
       }
       break;
+
     //Invalid question 
     default:
-      console.log("Invalid Question Type!!!");
+      questionElement.innerHTML = "Invalid Question Type!!!";
   }
 
 }
 
+//Display UI for performance review
 function showResults(){
   let numCorrect = 0;
   console.log(answers);
+
+  //Iterates through questions and answers to add results to table
   questions.forEach(({question, correctAnswer}, i)=>{
     correctAnswer = String(correctAnswer).toLowerCase();
     const isCorrect = correctAnswer.includes(answers[i]); 
@@ -215,7 +236,6 @@ function showResults(){
   });
   const correctRatio = numCorrect/numQuestions;
   scoreDisplay.innerHTML = numCorrect + "/" + numQuestions;
-  
   
   //These messages were bought to you by chat GPT
   let message = "";
