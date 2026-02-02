@@ -110,6 +110,7 @@ function handleNextButtonClicked(){
 function handleBackButtonClicked(){
   hideAll();
   quizSection.hidden = false;
+  nextButton.innerHTML = "Next"
   currentQuestion -= 1;
   if(currentQuestion === 0){
     backButton.disabled = true;
