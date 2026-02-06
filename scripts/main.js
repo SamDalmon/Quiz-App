@@ -1,4 +1,5 @@
 import Quiz from "./Quiz.js";
+import PerformanceReview from "./PerformanceReview.js";
 
 //The states the App can be in
 const states = {
@@ -16,13 +17,16 @@ const howToSection = document.getElementById("how-to");
 const quizSection = document.getElementById("quiz");
 const resultsSection = document.getElementById("performance-review");
 
+/*
 //Performance Review
 const scoreDisplay = document.getElementById("score-display");
 const messageDisplay = document.getElementById("message-display");
 const resultsTable = document.getElementById("results-table");
+*/
 
 let currentState = states.howTo;
 let quiz;
+let performanceReview;
 
 //Called when next button pressed
 function handleNextButtonClicked(){
@@ -34,7 +38,7 @@ function handleNextButtonClicked(){
   switch (currentState){
     case states.howTo:
       //Resets all state variables
-      resultsTable.innerHTML = "";
+      //resultsTable.innerHTML = "";
       nextButton.innerHTML = "Next";
       nextButton.disabled = true;
       currentState = states.quiz;
@@ -63,7 +67,8 @@ function handleNextButtonClicked(){
         nextButton.innerHTML = "Play Again"
         backButton.disabled = true;
         currentState = states.performanceReview;
-        showResults();
+        performanceReview = new PerformanceReview(quiz.questions, quiz.answers);
+        performanceReview.showResults();
       }
       break;
 
@@ -108,48 +113,6 @@ function hideAll(){
   quizSection.hidden = true;
   resultsSection.hidden = true;
   Quiz.hideAnswerInputs();
-}
-
-//Display UI for performance review
-function showResults(){
-  let numCorrect = 0;
-  console.log(quiz.answers);
-
-  //Iterates through questions and answers to add results to table
-  quiz.questions.forEach(({question, correctAnswer}, i)=>{
-    correctAnswer = String(correctAnswer).toLowerCase();
-    const isCorrect = correctAnswer.includes(quiz.answers[i]); 
-    const color = isCorrect ? "#9de060" : "#f76d71";
-    numCorrect += Number(isCorrect);
-    const componentHTML = `
-      <tr style="background-color: ${color}">
-        <td>${question}</td>
-        <td>${quiz.answers[i]}</td>
-        <td>${correctAnswer}</td>
-      </tr>
-    `
-    resultsTable.insertAdjacentHTML('beforeend', componentHTML);
-  });
-  const correctRatio = numCorrect/Quiz.numQuestions;
-  scoreDisplay.innerHTML = numCorrect + "/" + Quiz.numQuestions;
-  
-  //These messages were bought to you by chat GPT
-  let message = "";
-  if(correctRatio === 1){
-    message = "Flawless. NASA just called — they want to study your brain.";
-  } else if (correctRatio === 0){
-    message = "0 correct is CRAZY. This wasn't a quiz — this was free-range button mashing. \
-      Bro said 'lock in' and immediately logged out. Absolute NPC behavior. \
-      No thoughts. Head empty. Wi-Fi connected but brain buffering.";
-  } 
-  else if (correctRatio >= 0.5){
-    message = "Respectable. You definitely spend time online… maybe a healthy amount.";
-  } else if (correctRatio >= 0.33){
-    message = "Okay… not great, not terrible. You've seen memes, just not paying attention.";
-  } else {
-    message = "Yikes. This score just got ratioed.";
-  }
-  messageDisplay.innerHTML = message;
 }
 
 //Event Listeners
