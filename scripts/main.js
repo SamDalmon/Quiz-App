@@ -1,4 +1,5 @@
-import { allQuestions } from "../res/quiz-questions.js";
+//import { allQuestions } from "../res/quiz-questions.js";
+import Quiz from "./Quiz.js";
 
 //The states the App can be in
 const states = {
@@ -8,17 +9,13 @@ const states = {
 };
 
 //Question types
+/*
 const questionTypes = {
   multiChoice: "multi-choice",
   trueFalse: "true-false",
   fillInTheBlank: "fill-in-the-blank"
 }
-
-const numQuestions = 5; //The total number of questions in a quiz (can be increased)
-let currentState = states.howTo;
-let currentQuestion;
-let questions;
-let answers; //stores answers entered by users
+*/
 
 //Navigation
 const nextButton = document.getElementById("next-button");
@@ -30,6 +27,7 @@ const quizSection = document.getElementById("quiz");
 const resultsSection = document.getElementById("performance-review");
 
 //Quiz Elements
+/*
 const questionTypeElement = document.getElementById("question-type");
 const questionElement = document.getElementById("question");
 const multiChoiceInput = document.getElementById(questionTypes.multiChoice+"-input");
@@ -41,49 +39,64 @@ const trueButton = document.getElementById("true-button");
 const falseButton = document.getElementById("false-button");
 const answerButtons = document.getElementsByClassName("answer-button");
 const textEntry = document.getElementById("text-entry");
+*/
 
 //Performance Review
 const scoreDisplay = document.getElementById("score-display");
 const messageDisplay = document.getElementById("message-display");
 const resultsTable = document.getElementById("results-table");
 
+//const numQuestions = 5; //The total number of questions in a quiz (can be increased)
+let currentState = states.howTo;
+let quiz;
+//let currentQuestion;
+//let questions;
+//let answers; //stores answers entered by users
+
 //Called when next button pressed
 function handleNextButtonClicked(){
   //Resets UI
   hideAll();
-  enableAllButtons()
+  Quiz.enableAllButtons()
 
   //Sets UI based on state
   switch (currentState){
     case states.howTo:
       //Resets all state variables
-      questions = [];
-      answers = Array(numQuestions).fill(null);
-      currentQuestion = 0;
       resultsTable.innerHTML = "";
-      loadQuestions();
-      quizSection.hidden = false;
-      loadQuestion();
       nextButton.innerHTML = "Next";
       nextButton.disabled = true;
       currentState = states.quiz;
+      quizSection.hidden = false;
+      quiz = new Quiz();
+      /*
+      questions = [];
+      answers = Array(numQuestions).fill(null);
+      currentQuestion = 0;
+      
+      loadQuestions();
+      
+      loadQuestion();
+      
+      */
       break;
 
     case states.quiz:
-      if(currentQuestion < numQuestions - 1){
+      if(quiz.currentQuestion < Quiz.numQuestions - 1){
         //Navigate to next question and set up UI
         quizSection.hidden = false;
-        currentQuestion += 1;
-        if(answers[currentQuestion] === null){
+        quiz.nextQuestion();
+        //currentQuestion += 1;
+        if(quiz.answers[quiz.currentQuestion] === null){
           nextButton.disabled = true;
         }
-        if(currentQuestion > 0){
+        if(quiz.currentQuestion > 0){
           backButton.disabled = false;
         }
-        if(currentQuestion === questions.length - 1){
+        if(quiz.currentQuestion === Quiz.numQuestions - 1){
           nextButton.innerHTML = "Submit"
         }
-        loadQuestion();
+        //loadQuestion();
       } else {
         //Navigate to Performance review and set up UI
         resultsSection.hidden = false;
@@ -91,7 +104,7 @@ function handleNextButtonClicked(){
         nextButton.innerHTML = "Play Again"
         backButton.disabled = true;
         currentState = states.performanceReview;
-        showResults()
+        showResults();
       }
       break;
 
@@ -111,22 +124,23 @@ function handleBackButtonClicked(){
   hideAll();
   quizSection.hidden = false;
   nextButton.innerHTML = "Next"
-  currentQuestion -= 1;
-  if(currentQuestion === 0){
+  quiz.previousQuestion()
+  //currentQuestion -= 1;
+  if(quiz.currentQuestion === 0){
     backButton.disabled = true;
   }
-  if(answers[currentQuestion] !== null){
+  if(quiz.answers[quiz.currentQuestion] !== null){
     nextButton.disabled = false;
   }
-  loadQuestion();
+  //loadQuestion();
 }
 
 //Save entered answer and enable next button
 function handleAnswerInput({target}){
-  answers[currentQuestion] = target.value.toLowerCase().trim();
-  
+  //answers[currentQuestion] = target.value.toLowerCase().trim();
+  quiz.setAnswer(target.value.toLowerCase().trim());
   nextButton.disabled = false;
-  enableAllButtons();
+  Quiz.enableAllButtons();
   if (target.type !== "text") {
     target.disabled = true;
   }
@@ -137,18 +151,24 @@ function hideAll(){
   howToSection.hidden = true;
   quizSection.hidden = true;
   resultsSection.hidden = true;
-  answerInputs.forEach((input) => {
-    input.style.display = "none"
-  });
+  Quiz.hideAnswerInputs();
+  /*
+    answerInputs.forEach((input) => {
+      input.style.display = "none"
+    });
+  */
 }
 
+/*
 function enableAllButtons(){
   Array.from(answerButtons).forEach((button)=>{
     button.disabled = false;
   })
 }
+*/
 
 //Generates a random list of questions from all of the questions
+/*
 function loadQuestions(){
   const addedQuestions = [] //array of question indexes added
   for(let i = 0; i < numQuestions; i++){
@@ -161,8 +181,10 @@ function loadQuestions(){
   }
   console.log(questions)
 }
+*/
 
 //Sets up UI for current question
+/*
 function loadQuestion(){
   enableAllButtons();
   textEntry.value = "";
@@ -214,29 +236,30 @@ function loadQuestion(){
   }
 
 }
+*/
 
 //Display UI for performance review
 function showResults(){
   let numCorrect = 0;
-  console.log(answers);
+  console.log(quiz.answers);
 
   //Iterates through questions and answers to add results to table
-  questions.forEach(({question, correctAnswer}, i)=>{
+  quiz.questions.forEach(({question, correctAnswer}, i)=>{
     correctAnswer = String(correctAnswer).toLowerCase();
-    const isCorrect = correctAnswer.includes(answers[i]); 
+    const isCorrect = correctAnswer.includes(quiz.answers[i]); 
     const color = isCorrect ? "#9de060" : "#f76d71";
     numCorrect += Number(isCorrect);
     const componentHTML = `
       <tr style="background-color: ${color}">
         <td>${question}</td>
-        <td>${answers[i]}</td>
+        <td>${quiz.answers[i]}</td>
         <td>${correctAnswer}</td>
       </tr>
     `
     resultsTable.insertAdjacentHTML('beforeend', componentHTML);
   });
-  const correctRatio = numCorrect/numQuestions;
-  scoreDisplay.innerHTML = numCorrect + "/" + numQuestions;
+  const correctRatio = numCorrect/Quiz.numQuestions;
+  scoreDisplay.innerHTML = numCorrect + "/" + Quiz.numQuestions;
   
   //These messages were bought to you by chat GPT
   let message = "";
@@ -260,15 +283,15 @@ function showResults(){
 //Event Listeners
 nextButton.addEventListener("click", handleNextButtonClicked);
 backButton.addEventListener("click", handleBackButtonClicked);
-Array.from(answerButtons).forEach((button)=>{
+Array.from(Quiz.answerButtons).forEach((button)=>{
   button.addEventListener("click", handleAnswerInput);
 });
-textEntry.addEventListener("input", handleAnswerInput);
+Quiz.textEntry.addEventListener("input", handleAnswerInput);
 
 document.addEventListener("keydown", ({key}) => {
   switch(key){
     case("Enter"): 
-      if(answers[currentQuestion] !== null){
+      if(!nextButton.disabled){
         handleNextButtonClicked();
       }
       break;
