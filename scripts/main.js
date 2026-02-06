@@ -1,4 +1,3 @@
-//import { allQuestions } from "../res/quiz-questions.js";
 import Quiz from "./Quiz.js";
 
 //The states the App can be in
@@ -7,15 +6,6 @@ const states = {
   quiz: "quiz",
   performanceReview: "performance-review"
 };
-
-//Question types
-/*
-const questionTypes = {
-  multiChoice: "multi-choice",
-  trueFalse: "true-false",
-  fillInTheBlank: "fill-in-the-blank"
-}
-*/
 
 //Navigation
 const nextButton = document.getElementById("next-button");
@@ -26,32 +16,13 @@ const howToSection = document.getElementById("how-to");
 const quizSection = document.getElementById("quiz");
 const resultsSection = document.getElementById("performance-review");
 
-//Quiz Elements
-/*
-const questionTypeElement = document.getElementById("question-type");
-const questionElement = document.getElementById("question");
-const multiChoiceInput = document.getElementById(questionTypes.multiChoice+"-input");
-const trueFalseInput = document.getElementById(questionTypes.trueFalse+"-input");
-const fillInTheBlankInput = document.getElementById(questionTypes.fillInTheBlank+"-input");
-const answerInputs = [multiChoiceInput, trueFalseInput, fillInTheBlankInput];
-const multiChoiceButtons = document.getElementsByClassName("option");
-const trueButton = document.getElementById("true-button");
-const falseButton = document.getElementById("false-button");
-const answerButtons = document.getElementsByClassName("answer-button");
-const textEntry = document.getElementById("text-entry");
-*/
-
 //Performance Review
 const scoreDisplay = document.getElementById("score-display");
 const messageDisplay = document.getElementById("message-display");
 const resultsTable = document.getElementById("results-table");
 
-//const numQuestions = 5; //The total number of questions in a quiz (can be increased)
 let currentState = states.howTo;
 let quiz;
-//let currentQuestion;
-//let questions;
-//let answers; //stores answers entered by users
 
 //Called when next button pressed
 function handleNextButtonClicked(){
@@ -69,16 +40,6 @@ function handleNextButtonClicked(){
       currentState = states.quiz;
       quizSection.hidden = false;
       quiz = new Quiz();
-      /*
-      questions = [];
-      answers = Array(numQuestions).fill(null);
-      currentQuestion = 0;
-      
-      loadQuestions();
-      
-      loadQuestion();
-      
-      */
       break;
 
     case states.quiz:
@@ -86,7 +47,6 @@ function handleNextButtonClicked(){
         //Navigate to next question and set up UI
         quizSection.hidden = false;
         quiz.nextQuestion();
-        //currentQuestion += 1;
         if(quiz.answers[quiz.currentQuestion] === null){
           nextButton.disabled = true;
         }
@@ -96,7 +56,6 @@ function handleNextButtonClicked(){
         if(quiz.currentQuestion === Quiz.numQuestions - 1){
           nextButton.innerHTML = "Submit"
         }
-        //loadQuestion();
       } else {
         //Navigate to Performance review and set up UI
         resultsSection.hidden = false;
@@ -125,19 +84,16 @@ function handleBackButtonClicked(){
   quizSection.hidden = false;
   nextButton.innerHTML = "Next"
   quiz.previousQuestion()
-  //currentQuestion -= 1;
   if(quiz.currentQuestion === 0){
     backButton.disabled = true;
   }
   if(quiz.answers[quiz.currentQuestion] !== null){
     nextButton.disabled = false;
   }
-  //loadQuestion();
 }
 
 //Save entered answer and enable next button
 function handleAnswerInput({target}){
-  //answers[currentQuestion] = target.value.toLowerCase().trim();
   quiz.setAnswer(target.value.toLowerCase().trim());
   nextButton.disabled = false;
   Quiz.enableAllButtons();
@@ -152,91 +108,7 @@ function hideAll(){
   quizSection.hidden = true;
   resultsSection.hidden = true;
   Quiz.hideAnswerInputs();
-  /*
-    answerInputs.forEach((input) => {
-      input.style.display = "none"
-    });
-  */
 }
-
-/*
-function enableAllButtons(){
-  Array.from(answerButtons).forEach((button)=>{
-    button.disabled = false;
-  })
-}
-*/
-
-//Generates a random list of questions from all of the questions
-/*
-function loadQuestions(){
-  const addedQuestions = [] //array of question indexes added
-  for(let i = 0; i < numQuestions; i++){
-    let randNum;
-    do {
-      randNum = Math.floor(Math.random() * allQuestions.length);
-    } while (addedQuestions.includes(randNum))
-    questions.push(allQuestions[randNum]);
-    addedQuestions.push(randNum)
-  }
-  console.log(questions)
-}
-*/
-
-//Sets up UI for current question
-/*
-function loadQuestion(){
-  enableAllButtons();
-  textEntry.value = "";
-  const question = questions[currentQuestion];
-
-  //Display question type and question
-  questionTypeElement.innerHTML = question.type;
-  questionElement.innerHTML = question.question;
-  
-  // Set up UI for corresponding question type
-  switch(question.type){
-    //Multi choice question
-    case questionTypes.multiChoice:
-      multiChoiceInput.style.display = "grid";
-      for (let i = 0; i < 4; i++){
-        const text = question.options[i]; //button text
-        multiChoiceButtons[i].innerHTML = text;
-        multiChoiceButtons[i].value = text;
-        if(text.toLowerCase() === answers[currentQuestion]){
-          multiChoiceButtons[i].disabled = true;
-        }
-      }
-      break;
-
-    //True or false question
-    case questionTypes.trueFalse:
-      trueFalseInput.style.display = "grid";
-      switch(answers[currentQuestion]){
-        case "true":
-          trueButton.disabled = true;
-          break;
-        case "false":
-          falseButton.disabled = true;
-          break;
-      }
-      break;
-
-    //Fill in the blank question
-    case questionTypes.fillInTheBlank:
-      fillInTheBlankInput.style.display = "block";
-      if(answers[currentQuestion] !== null){
-        textEntry.value = answers[currentQuestion];
-      }
-      break;
-
-    //Invalid question 
-    default:
-      questionElement.innerHTML = "Invalid Question Type!!!";
-  }
-
-}
-*/
 
 //Display UI for performance review
 function showResults(){
