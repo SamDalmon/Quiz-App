@@ -19,13 +19,13 @@ export default class PerformanceReview {
     //Iterates through questions and answers to add results to table
     this.questions.forEach(({question, correctAnswer}, i)=>{
       correctAnswer = String(correctAnswer).toLowerCase();
-      const isCorrect = correctAnswer.includes(this.answers[i]); 
+      const isCorrect = correctAnswer.includes(this.inputs[i]); 
       const color = isCorrect ? "#9de060" : "#f76d71";
       numCorrect += Number(isCorrect);
       const componentHTML = `
         <tr style="background-color: ${color}">
           <td>${question}</td>
-          <td>${this.answers[i]}</td>
+          <td>${this.inputs[i]}</td>
           <td>${correctAnswer}</td>
         </tr>
       `;
