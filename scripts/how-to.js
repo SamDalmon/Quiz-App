@@ -1,3 +1,4 @@
+/* jshint esversion: 11 */
 import Quiz from "./Quiz.js";
 import PerformanceReview from "./PerformanceReview.js";
 
@@ -25,7 +26,7 @@ let performanceReview;
 function handleNextButtonClicked(){
   //Resets UI
   hideAll();
-  Quiz.enableAllButtons()
+  Quiz.enableAllButtons();
 
   //Sets UI based on state
   switch (currentState){
@@ -50,13 +51,13 @@ function handleNextButtonClicked(){
           backButton.disabled = false;
         }
         if(quiz.currentQuestion === Quiz.numQuestions - 1){
-          nextButton.innerHTML = "Submit"
+          nextButton.innerHTML = "Submit";
         }
       } else {
         //Navigate to Performance review and set up UI
         resultsSection.hidden = false;
         nextButton.disabled = false;
-        nextButton.innerHTML = "Play Again"
+        nextButton.innerHTML = "Play Again";
         backButton.disabled = true;
         currentState = states.performanceReview;
         performanceReview = new PerformanceReview(quiz.questions, quiz.answers);
@@ -79,8 +80,8 @@ function handleNextButtonClicked(){
 function handleBackButtonClicked(){
   hideAll();
   quizSection.hidden = false;
-  nextButton.innerHTML = "Next"
-  quiz.previousQuestion()
+  nextButton.innerHTML = "Next";
+  quiz.previousQuestion();
   if(quiz.currentQuestion === 0){
     backButton.disabled = true;
   }

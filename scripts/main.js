@@ -1,3 +1,4 @@
+/* jshint esversion: 11 */
 //This function was with help from ChatGPT. 
 async function loadSections() {
   try {

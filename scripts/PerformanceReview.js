@@ -1,14 +1,11 @@
+/* jshint esversion: 11 */
 export default class PerformanceReview {
-  //Performance Review
-  static scoreDisplay = document.getElementById("score-display");
-  static messageDisplay = document.getElementById("message-display");
-  static resultsTable = document.getElementById("results-table");
 
   constructor(questions, inputs){
     PerformanceReview.resultsTable.innerHTML = "";
     this.questions = questions;
     this.inputs = inputs;
-    this.numQuestions = this.questions.length
+    this.numQuestions = this.questions.length;
   }
 
   //Display UI for performance review
@@ -39,9 +36,9 @@ export default class PerformanceReview {
     if(correctRatio === 1){
       message = "Flawless. NASA just called — they want to study your brain.";
     } else if (correctRatio === 0){
-      message = "0 correct is CRAZY. This wasn't a quiz — this was free-range button mashing. \
-        Bro said 'lock in' and immediately logged out. Absolute NPC behavior. \
-        No thoughts. Head empty. Wi-Fi connected but brain buffering.";
+      message = `0 correct is CRAZY. This wasn't a quiz — this was free-range button mashing.
+        Bro said 'lock in' and immediately logged out. Absolute NPC behavior.
+        No thoughts. Head empty. Wi-Fi connected but brain buffering.`;
     } 
     else if (correctRatio >= 0.5){
       message = "Respectable. You definitely spend time online… maybe a healthy amount.";
@@ -53,3 +50,8 @@ export default class PerformanceReview {
     PerformanceReview.messageDisplay.innerHTML = message;
   }
 }
+
+//Performance Review
+PerformanceReview.scoreDisplay = document.getElementById("score-display");
+PerformanceReview.messageDisplay = document.getElementById("message-display");
+PerformanceReview.resultsTable = document.getElementById("results-table");

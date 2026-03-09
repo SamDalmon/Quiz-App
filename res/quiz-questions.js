@@ -1,3 +1,4 @@
+/* jshint esversion: 11 */
 /*
   Quiz data for the Internet Memes quiz.
   This dataset was generated with the assistance of ChatGPT.
