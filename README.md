@@ -20,7 +20,9 @@ This app is a quiz based around the theme of Memes. It is a Web based SPA (Singl
 ### Landing Page
 ![image](pictures/landing-page.PNG)
 * The Landing Page consists of the **Quiz Title**, a **How-to** section, and a **Start Quiz** Button.
-* The Landing Page allows users to see what Quiz App they are using, read how to complete the Quiz, and to start the quiz.
+* The Landing Page allows users to see what Quiz App they are using, read how to start the quiz, answer the questions, and complete the quiz.
+
+---
 
 ### Quiz Component
 ![image](pictures/quiz.PNG)
@@ -29,18 +31,22 @@ This app is a quiz based around the theme of Memes. It is a Web based SPA (Singl
   * Multi-choice (pictured above).
   * True or false.
   * Fill in the blank.
-* The Next Button can be used to navigate to the next question once current question has been answered.
-* The Back button can be used to navigate back to any previous question to change the answer.
+* The **Next** Button can be used to navigate to the next question once current question has been answered.
+* The **Back** button can be used to navigate back to any previous question to change the answer.
 * The Quiz component provides an intuitive environment to answer questions.
   
+---
 
 ### Performance Review
 ![image](pictures/performance-review.PNG)
+
 The Performance Review consists of: 
 * A fraction to show how many correct answers out of total questions.
 * A funny and encouraging message to the user, so they will want to play again. 
 * A color coded table listing all the questions and answers, so users know where they can improve.
 * A **Play Again** button that when pressed will take users back to the Landing Page.
+
+---
 
 ## User Flow
 ```mermaid
@@ -57,16 +63,16 @@ The Performance Review consists of:
 * Key rules 
   * Users must answer questions before continuing
   * Submission locks answers
-  * while in the quiz, users can freely move back and fourth through the questions
+  * While in the quiz, users can freely move back and fourth through the questions
 
 ## Responsiveness
 * The layout has a max width so the content isn't stretched out on wide screens.
 * When the view port is narrower than the max width, then the content automatically adjusts to the width of the screen. 
 * A grid template was used with the answer buttons to make the layout switch from 2 columns to one column when the view port width becomes two narrow.
 * Supported device types 
-  * desktop
-  * tablet
-  * mobile
+  * Desktop
+  * Tablet
+  * Mobile
 
 ## Technologies Used
 * Programming languages used
@@ -77,7 +83,7 @@ The Performance Review consists of:
   * Github
 
 ## Deployment Procedure
-* To run locally: open the index.html file with any browser.
+* To run locally, follow the instructions located here: [Set up local testing server](https://developer.mozilla.org/en-US/docs/Learn_web_development/Howto/Tools_and_setup/set_up_a_local_testing_server).
 * To deploy using Github pages: [Github Pages Quickstart](https://docs.github.com/en/pages/quickstart).  
 
 <!-- Written with the help of Chat GPT -->
@@ -115,6 +121,408 @@ The application was tested using a combination of manual functional testing, res
   * Ease of navigation
   * Overall user experience
 * This feedback was used to identify minor usability improvements and confirm that the quiz flow was intuitive for first-time users.
+
+## Code Validation
+
+### HTML Validation
+
+#### **[index.html](index.html)**
+**Initial errors**
+
+![image](pictures/index.html_initial.PNG)
+
+**Fixes**
+* Warnings 1-3 can be ignored as those sections are loaded later.
+* Fix for error 4: Change ```disabled="true"``` on line 39 to ```disabled```.
+* Fix for error 5: Remove ```defer``` from script tag.
+
+**Final Errors**
+
+![image](pictures/index.html_final.png)
+
+---
+
+#### **[how-to.html](/sections/how-to.html)**
+
+**Initial Errors**
+
+![image](pictures/how-to.html_initial.png)
+
+* Errors 1-3: As how-to.html contains HTML that will be injected into another HTML, adding ```<!DOCTYPE html>``` and a title to the top of the file will cause a “invalid nested markup” error. So these errors are to be ignored.
+
+---
+
+#### **[quiz.html](/sections/quiz.html)**
+
+**Initial Errors**
+
+![image](pictures/quiz.html_initial.png)
+
+* Errors 1-3: As quiz.html contains HTML that will be injected into another HTML, adding ```<!DOCTYPE html>``` and a title to the top of the file will cause a “invalid nested markup” error. So errors 1-3 are to be ignored.
+* Info 4: Remove trailing slash on the input tag on line 20.
+
+**Final Errors**
+
+![image](pictures/quiz.html_final.png)
+
+---
+
+#### **[performance-review.html](/sections/peformance-review.html)**
+
+**Initial Errors**
+
+![image](pictures/performance-review.html_initial.png)
+
+* Errors 1-3: As performance-review.html contains HTML that will be injected into another HTML, adding ```<!DOCTYPE html>``` and a title to the top of the file will cause a “invalid nested markup” error. So errors 1-3 are to be ignored.
+* Warning 4: replace obsolete ```<table border=”1”>``` with ```<table>```
+  and add the following to the relevant CSS file:
+  ```css
+    table { 
+      border: 1px solid black; 
+    }  
+    
+    th { 
+      border: 1px solid black; 
+    } 
+    
+    td { 
+      border: 1px solid black; 
+    }
+  ```
+
+  
+* Error 5: surround all 
+  ```html
+    <th>
+       ... 
+    </th> 
+  ```
+  
+  tags with ```<tr> … </tr>``` like so
+  ```html
+    <tr>
+      <th>
+        ...
+      </th>
+    </tr>
+
+**Final Errors**
+
+![image](/pictures/performance-review.html_final.png)
+
+---
+
+### CSS Validation
+
+#### **[global.css](/styles/global.css)**
+
+![image](/pictures/global.css_initial.png)
+
+---
+
+#### **[quiz.css](/styles/quiz.css)**
+
+![image](/pictures/quiz.css_initial.png)
+
+---
+
+#### **[performance-review.css](/styles/performance-review.css)**
+
+![image](/pictures/performance-review.css_initial.png)
+
+---
+
+### JavaScript Validation
+
+#### **[main.js](/scripts/main.js)**
+
+**Initial Errors**
+
+![image](/pictures/main.js_initial.png)
+
+**Steps to Fix**
+
+**Step1:** Add ```/* jshint esversion: 11 */``` to the top of the file to make sure the linter is using the right linter 
+
+![image](/pictures/valid-javascript.png)
+
+---
+
+#### **[how-to.js](/scripts/how-to.js)**
+
+**Initial Errors**
+
+![image](/pictures/how-to.js_initial.png)
+
+**Steps to Fix**
+
+**Step 1:** Add ```/* jshint esversion: 11 */``` to the top of the file to make sure the linter is using the right linter 
+**Result**
+```Line 28, Column 26: Missing semicolon.
+Line 53, Column 42: Missing semicolon.
+Line 59, Column 44: Missing semicolon.
+Line 82, Column 32: Missing semicolon.
+Line 83, Column 26: Missing semicolon. 
+```
+
+**Step 2:** Add semicolons to the end of lines 28, 53, 59, 82, 83
+
+![image](/pictures/valid-javascript.png)
+
+---
+
+#### **[Quiz.js](/scripts/Quiz.js)**
+
+**Initial Errors**
+
+![image](/pictures/quiz.js_initial.png)
+
+**Steps to Fix**
+
+**Step 1:** Add ```/* jshint esversion: 11 */``` to the top of the file to make sure the linter is using the right linter
+
+**Result**
+```Line 9, Column 7: Missing semicolon.
+Line 14, Column 35: Missing semicolon.
+Line 18, Column 23: Class properties must be methods. Expected '(' but instead saw '='.
+Line 24, Column 10: Expected an identifier and instead saw '#'.
+Line 24, Column 10: Expected an assignment or function call and instead saw an expression.
+Line 24, Column 11: Missing semicolon.
+Line 25, Column 10: Expected an identifier and instead saw '#'.
+Line 25, Column 10: Expected an assignment or function call and instead saw an expression.
+Line 25, Column 11: Missing semicolon.
+Line 26, Column 10: Expected an identifier and instead saw '#'.
+Line 26, Column 10: Expected an assignment or function call and instead saw an expression.
+Line 26, Column 11: Missing semicolon.
+Line 27, Column 10: Expected an identifier and instead saw '#'.
+Line 27, Column 10: Expected an assignment or function call and instead saw an expression.
+Line 27, Column 11: Missing semicolon.
+Line 28, Column 10: Expected an identifier and instead saw '#'.
+Line 28, Column 10: Expected an assignment or function call and instead saw an expression.
+Line 28, Column 11: Missing semicolon.
+Line 32, Column 17: Expected an identifier and instead saw '#'.
+Line 32, Column 18: Missing semicolon.
+Line 32, Column 18: Expected an assignment or function call and instead saw an expression.
+Line 36, Column 17: Expected an identifier and instead saw '#'.
+Line 36, Column 18: Missing semicolon.
+Line 36, Column 18: Expected an assignment or function call and instead saw an expression.
+Line 40, Column 17: Expected an identifier and instead saw '#'.
+Line 40, Column 18: Missing semicolon.
+Line 40, Column 18: Expected an assignment or function call and instead saw an expression.
+Line 44, Column 10: Expected an identifier and instead saw '#'.
+Line 44, Column 10: Expected an assignment or function call and instead saw an expression.
+Line 44, Column 11: Missing semicolon.
+Line 44, Column 24: Expected an identifier and instead saw '#'.
+Line 44, Column 25: Expected ']' to match '[' from line 44 and instead saw 'currentQuestion'.
+Line 44, Column 25: Expected an assignment or function call and instead saw an expression.
+Line 44, Column 40: Missing semicolon.
+Line 44, Column 40: Expected an identifier and instead saw ']'.
+Line 44, Column 42: Expected an operator and instead saw '='.
+Line 44, Column 42: Expected an assignment or function call and instead saw an expression.
+Line 44, Column 43: Missing semicolon.
+Line 44, Column 44: Expected an assignment or function call and instead saw an expression.
+Line 48, Column 10: Expected an identifier and instead saw '#'.
+Line 48, Column 10: Expected an assignment or function call and instead saw an expression.
+Line 48, Column 11: Missing semicolon.
+Line 49, Column 10: Expected an identifier and instead saw '#'.
+Line 49, Column 10: Expected an assignment or function call and instead saw an expression.
+Line 49, Column 11: Missing semicolon.
+Line 53, Column 10: Expected an identifier and instead saw '#'.
+Line 53, Column 10: Expected an assignment or function call and instead saw an expression.
+Line 53, Column 11: Missing semicolon.
+Line 54, Column 10: Expected an identifier and instead saw '#'.
+Line 54, Column 10: Expected an assignment or function call and instead saw an expression.
+Line 54, Column 10: Too many errors. (43% scanned).
+```
+
+**Step 2:** Move the static variable outside of the class
+change variables like so
+```js
+class Quiz {
+    Static questionTypes = {
+       multiChoice: "multi-choice",
+    }
+}
+```
+To
+```js
+class Quiz {
+}
+
+Quiz.questionTypes = {
+   multiChoice: "multi-choice",
+};
+```
+
+**Result**
+
+```
+Line 9, Column 7: Missing semicolon.
+Line 14, Column 35: Missing semicolon.
+Line 18, Column 23: Class properties must be methods. Expected '(' but instead saw '='.
+Line 24, Column 10: Expected an identifier and instead saw '#'.
+Line 24, Column 10: Expected an assignment or function call and instead saw an expression.
+Line 24, Column 11: Missing semicolon.
+Line 25, Column 10: Expected an identifier and instead saw '#'.
+Line 25, Column 10: Expected an assignment or function call and instead saw an expression.
+Line 25, Column 11: Missing semicolon.
+Line 26, Column 10: Expected an identifier and instead saw '#'.
+Line 26, Column 10: Expected an assignment or function call and instead saw an expression.
+Line 26, Column 11: Missing semicolon.
+Line 27, Column 10: Expected an identifier and instead saw '#'.
+Line 27, Column 10: Expected an assignment or function call and instead saw an expression.
+Line 27, Column 11: Missing semicolon.
+Line 28, Column 10: Expected an identifier and instead saw '#'.
+Line 28, Column 10: Expected an assignment or function call and instead saw an expression.
+Line 28, Column 11: Missing semicolon.
+Line 32, Column 17: Expected an identifier and instead saw '#'.
+Line 32, Column 18: Missing semicolon.
+Line 32, Column 18: Expected an assignment or function call and instead saw an expression.
+Line 36, Column 17: Expected an identifier and instead saw '#'.
+Line 36, Column 18: Missing semicolon.
+Line 36, Column 18: Expected an assignment or function call and instead saw an expression.
+Line 40, Column 17: Expected an identifier and instead saw '#'.
+Line 40, Column 18: Missing semicolon.
+Line 40, Column 18: Expected an assignment or function call and instead saw an expression.
+Line 44, Column 10: Expected an identifier and instead saw '#'.
+Line 44, Column 10: Expected an assignment or function call and instead saw an expression.
+Line 44, Column 11: Missing semicolon.
+Line 44, Column 24: Expected an identifier and instead saw '#'.
+Line 44, Column 25: Expected ']' to match '[' from line 44 and instead saw 'currentQuestion'.
+Line 44, Column 25: Expected an assignment or function call and instead saw an expression.
+Line 44, Column 40: Missing semicolon.
+Line 44, Column 40: Expected an identifier and instead saw ']'.
+Line 44, Column 42: Expected an operator and instead saw '='.
+Line 44, Column 42: Expected an assignment or function call and instead saw an expression.
+Line 44, Column 43: Missing semicolon.
+Line 44, Column 44: Expected an assignment or function call and instead saw an expression.
+Line 48, Column 10: Expected an identifier and instead saw '#'.
+Line 48, Column 10: Expected an assignment or function call and instead saw an expression.
+Line 48, Column 11: Missing semicolon.
+Line 49, Column 10: Expected an identifier and instead saw '#'.
+Line 49, Column 10: Expected an assignment or function call and instead saw an expression.
+Line 49, Column 11: Missing semicolon.
+Line 53, Column 10: Expected an identifier and instead saw '#'.
+Line 53, Column 10: Expected an assignment or function call and instead saw an expression.
+Line 53, Column 11: Missing semicolon.
+Line 54, Column 10: Expected an identifier and instead saw '#'.
+Line 54, Column 10: Expected an assignment or function call and instead saw an expression.
+Line 54, Column 10: Too many errors. (37% scanned).
+```
+**Step 3:** Remove private “#” methods and variables, and dedicated setters
+
+**Result**
+``` 
+Line 9, Column 7: Missing semicolon.
+Line 14, Column 35: Missing semicolon.
+Line 18, Column 23: Class properties must be methods. Expected '(' but instead saw '='.
+Line 59, Column 30: Missing semicolon.
+Line 64, Column 49: Missing semicolon.
+Line 66, Column 35: Missing semicolon.
+Line 68, Column 32: Missing semicolon.
+Line 132, Column 2: Missing semicolon.
+```
+**Step 4:** Remove declaration of variables that are initialized in the constructor.
+
+**Result**
+```
+Line 9, Column 7: Missing semicolon.
+Line 14, Column 35: Missing semicolon.
+Line 42, Column 30: Missing semicolon.
+Line 47, Column 49: Missing semicolon.
+Line 49, Column 35: Missing semicolon.
+Line 51, Column 32: Missing semicolon.
+Line 115, Column 2: Missing semicolon.
+```
+**Step 5:** Add semicolons on the end of lines: 9, 14, 42, 47, 49, 51, 115
+
+![image](/pictures/valid-javascript.png)
+
+---
+
+#### **[PerformanceReview.js](/scripts/PerformanceReview.js)**
+
+**Initial Errors**
+
+![image](/pictures/performancReview.js_initial.png)
+
+**Step 1:** Move the static variable outside of the class
+change variables like...
+```js
+class PerformanceReview {
+    static scoreDisplay = document.getElementById("score-display");
+}
+```
+To
+```js
+class PerformanceReview {
+}
+
+PerformanceReview.scoreDisplay = document.getElementById("score-display");
+```
+
+**Result**
+```
+Line 1, Column 1: 'export' is only available in ES6 (use 'esversion: 6').
+Line 1, Column 16: 'class' is available in ES6 (use 'esversion: 6') or Mozilla JS extensions (use moz).
+Line 7, Column 46: Missing semicolon.
+Line 12, Column 5: 'let' is available in ES6 (use 'esversion: 6') or Mozilla JS extensions (use moz).
+Line 16, Column 28: 'destructuring binding' is available in ES6 (use 'esversion: 6') or Mozilla JS extensions (use moz).
+Line 16, Column 57: 'arrow function syntax (=>)' is only available in ES6 (use 'esversion: 6').
+Line 18, Column 7: 'const' is available in ES6 (use 'esversion: 6') or Mozilla JS extensions (use moz).
+Line 19, Column 7: 'const' is available in ES6 (use 'esversion: 6') or Mozilla JS extensions (use moz).
+Line 21, Column 7: 'const' is available in ES6 (use 'esversion: 6') or Mozilla JS extensions (use moz).
+Line 21, Column 29: 'template literal syntax' is only available in ES6 (use 'esversion: 6').
+Line 30, Column 5: 'const' is available in ES6 (use 'esversion: 6') or Mozilla JS extensions (use moz).
+Line 34, Column 5: 'let' is available in ES6 (use 'esversion: 6') or Mozilla JS extensions (use moz).
+Line 38, Column 96: Bad escaping of EOL. Use option multistr if needed.
+Line 39, Column 80: Bad escaping of EOL. Use option multistr if needed.
+```
+**Step 2:** Add ```/* jshint esversion: 11 */``` to the top of the file to make sure the linter is using the right linter
+
+**Result**
+```
+Line 8, Column 46: Missing semicolon.
+Line 39, Column 96: Bad escaping of EOL. Use option multistr if needed.
+Line 40, Column 80: Bad escaping of EOL. Use option multistr if needed.
+```
+**Step 3:** Replace multi line string speechmakers with back ticks, and remove EOL Escape back slashes
+
+From
+```js
+message = "0 correct is CRAZY. This wasn't a quiz — this was free-range button mashing.\
+        Bro said 'lock in' and immediately logged out. Absolute NPC behavior.\
+        No thoughts. Head empty. Wi-Fi connected but brain buffering.";
+```
+To
+```js
+message = `0 correct is CRAZY. This wasn't a quiz — this was free-range button mashing.
+        Bro said 'lock in' and immediately logged out. Absolute NPC behavior.
+        No thoughts. Head empty. Wi-Fi connected but brain buffering.`;
+```
+**Result**
+
+```Line 8, Column 46: Missing semicolon.```
+
+**Step 4:** Add a semicolon on the end of line 8.
+
+![image](/pictures/valid-javascript.png)
+
+---
+
+#### **[quiz-questions.js](/res/quiz-questions.js)**
+
+**Initial Errors**
+
+![image](/pictures/quiz-questions.js_initial.png)
+
+**Step 1:** Add ```/* jshint esversion: 11 */``` to the top of the file to make sure the linter is using the right linter.
+
+**Result**
+
+![image](/pictures/valid-javascript.png)
+
+---
 
 ## Features not implemented
 * Choice of quiz theme
