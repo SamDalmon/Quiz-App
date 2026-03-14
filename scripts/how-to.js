@@ -18,6 +18,8 @@ const states = {
   performanceReview: "performance-review"
 };
 
+const numQuestions = 5; //The total number of questions in a quiz (can be increased)
+
 let currentState = states.howTo;
 let quiz;
 let performanceReview;
@@ -36,11 +38,11 @@ function handleNextButtonClicked(){
       nextButton.disabled = true;
       currentState = states.quiz;
       quizSection.hidden = false;
-      quiz = new Quiz();
+      quiz = new Quiz(numQuestions);
       break;
 
     case states.quiz:
-      if(quiz.currentQuestion < Quiz.numQuestions - 1){
+      if(quiz.currentQuestion < quiz.numQuestions - 1){
         //Navigate to next question and set up UI
         quizSection.hidden = false;
         quiz.nextQuestion();
@@ -50,7 +52,7 @@ function handleNextButtonClicked(){
         if(quiz.currentQuestion > 0){
           backButton.disabled = false;
         }
-        if(quiz.currentQuestion === Quiz.numQuestions - 1){
+        if(quiz.currentQuestion === quiz.numQuestions - 1){
           nextButton.innerHTML = "Submit";
         }
       } else {

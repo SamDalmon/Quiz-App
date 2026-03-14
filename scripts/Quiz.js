@@ -15,7 +15,8 @@ export default class Quiz {
     });
   }
 
-  constructor(){
+  constructor(numQuestions){
+    this.numQuestions = numQuestions;
     this.questions = [];
     this.currentQuestion = 0;
     this.answers = Array(this.numQuestions).fill(null);
@@ -40,7 +41,7 @@ export default class Quiz {
   //Generates a random list of questions from all of the questions
   loadQuestions(){
     const addedQuestions = []; //array of question indexes added
-    for(let i = 0; i < Quiz.numQuestions; i++){
+    for(let i = 0; i < this.numQuestions; i++){
       let randNum;
       do {
         randNum = Math.floor(Math.random() * allQuestions.length);
@@ -106,7 +107,6 @@ export default class Quiz {
   }
 }
 
-Quiz.numQuestions = 5; //The total number of questions in a quiz (can be increased)
 //Question types
 Quiz.questionTypes = {
   multiChoice: "multi-choice",
